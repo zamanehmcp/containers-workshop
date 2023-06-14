@@ -27,3 +27,6 @@ The assets in this repository are not intended to replace any Azure guidance or 
 
 * [Module 2 - Lab 1 Assessing the App and Environment for Containers](https://github.com/loublick-ms/containers-workshop/tree/main/Labs/Module%202%20-%20Lab%201%20Assessing%20the%20App%20and%20Environment%20for%20Containers.md)
 
+## Demonstrations
+
+* [Module 3 - Demo Building and Testing a Container Locally](https://github.com/loublick-ms/containers-workshop/tree/main/Labs/Module%203%20-%20Demo%20Building%20and%20Testing%20a%20Container%20Locally.md)
