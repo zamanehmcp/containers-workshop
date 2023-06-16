@@ -1,4 +1,4 @@
-# Module 2 - Lab 1 Assessing the App and Environment for Containers
+# Module 2 - Lab 1: Assessing the App and Environment for Containers
 
 ## Time: 45 minutes
 
