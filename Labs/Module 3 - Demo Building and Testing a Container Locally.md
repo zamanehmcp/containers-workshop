@@ -1,8 +1,8 @@
 # Module 3 - Demonstration: Building and Testing a Container Locally
 
-In this lab, you will create the Azure services required to support the application, containerize the application, and run it locally on your desktop.
+The sample .NET project is a standard To-Do app commonly used in Azure learning modules and repos. It is configured for ASP.NET Core and .NET Core 7.0. The application currently uses the SQLite desktop database. In this demonstration, the app will be refctored to use Azure SQL in preparation to be migrated to the cloud. 
 
-The sample .NET project is a standard To-Do app commonly used in Azure learning modules and repos. It is configured for ASP.NET Core and .NET Core 7.0. It assumes the existence of an Azure SQL database.
+In this lab, you will create the Azure services required to support the application, containerize the application, and run it locally on your desktop.
 
 The project structure will look as follows:
 
@@ -22,7 +22,7 @@ The project structure will look as follows:
   - README.md
 ```
 
-## Provision the Azure services required to complete the lab
+## Provision the Azure services required by the application
 
 ### Create an Azure Resource Group
 
@@ -47,7 +47,7 @@ az sql db show-connection-string --client ado.net --server dbs-container-demo --
 
 ## Modify and run the app locally
 
-### Run the web app locally with the Azure SQL database
+### Run the web app natively on your desktop with the Azure SQL database
 
 Populate the MyDbConnection configuration item displayed by the last command in the appsettings.json file with connection string displayed for the Azure SQL database. Be sure to replace the admin username and password with the username and password used when creating the database.
 
@@ -74,6 +74,24 @@ Your appsettings.json file should look as follows:
         Connection Timeout=30;"
   }
 }
+```
+
+Create migrations for Azure SQL
+
+```console
+dotnet ef migrations add InitialCreate
+```
+
+Create an Azure SQL database connection string environment variable in Powershell. This env variable will be used by the .NET Entity Framework `dotnet ef` command to initialize the Azure SQL datbase schema for the app.
+
+```console
+$env:ConnectionStrings:MyDbConnection=<database connection string>
+```
+
+Run the .NET database migrations for Azure SQL database to create the database schema.
+
+```console
+dotnet ef database update
 ```
 
 Run the app.

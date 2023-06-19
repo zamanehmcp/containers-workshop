@@ -39,8 +39,8 @@ Create the cluster and attach the container registry created in the previous ste
 
 ```console
 az aks create \
-    --resource-group $RESOURCE_GROUP \
-    --name $CLUSTER_NAME \
+    --resource-group $env:RESOURCE_GROUP \
+    --name $env:CLUSTER_NAME \
     --node-count 2 \
     --enable-addons http_application_routing \
     --generate-ssh-keys \
