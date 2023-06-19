@@ -24,6 +24,15 @@ The project structure will look as follows:
 
 ## Provision the Azure services required by the application
 
+### Set environment variables
+
+$env:RESOURCE_GROUP="rg-containers-workshop"
+$env:LOCATION="eastus"
+$env:CLUSTER_NAME="aks-containers-workshop"
+$env:ACR_NAME="acrcontainersworkshop"
+$env:AS_DBSRV_NAME="as-dbs-containers-workshop"
+$env:AS_DBSRV_SKU="S0"
+
 ### Create an Azure Resource Group
 
 ```console
@@ -35,14 +44,14 @@ az group create --name rg-containers-workshop --location "East US"
 Azure SQL database is used by the app. You must create the database server and then create the app database.
 
 ```console
-az sql server create --name dbs-container-demo --resource-group rg-container-demo --location "East US" --admin-user <db admin username> --admin-password <admin password>
+az sql server create --name $env:AS_DBSRV_NAME --resource-group $env:RESOURCE_GROUP --location $env:LOCATION --admin-user <db admin username> --admin-password <admin password>
 ```
 
 Create the database on the Azure SQL server that was just created and display the connection string. Copy and save the connection string for later use in configuring the app and the cloud services.
 
 ```console
-az sql db create --resource-group rg-container-demo --server dbs-container-demo --name todoDB --service-objective S0
-az sql db show-connection-string --client ado.net --server dbs-container-demo --name todoDB
+az sql db create --resource-group $env:RESOURCE_GROUP --server $env:AS_DBSRV_NAME --name todoDB --service-objective $env:AS_DBSRV_SKU
+az sql db show-connection-string --client ado.net --server $env:AS_DBSRV_NAME --name todoDB
 ```
 
 ## Modify and run the app locally
@@ -63,15 +72,15 @@ Your appsettings.json file should look as follows:
   "AllowedHosts": "*",
   "ConnectionStrings": {
     "MyDbConnection": \
-        "Server=tcp:dbs-sql-containers-workshop.database.windows.net,1433; \
-        Initial Catalog=tododb; \
-        Persist Security Info=False; \
-        User ID={serverlogin_name}; \
-        Password={your_password}; \
-        MultipleActiveResultSets=False; \
-        Encrypt=True; \
-        TrustServerCertificate=False; \
-        Connection Timeout=30;"
+      "Server=tcp:as-dbs-containers-workshop.database.windows.net,1433; \
+      Initial Catalog=todoDB; \
+      Persist Security Info=False; \
+      User ID=<admin user>; \
+      Password=<admin pwd>; \
+      MultipleActiveResultSets=False; \
+      Encrypt=true; \
+      TrustServerCertificate=False; \
+      Connection Timeout=30;"
   }
 }
 ```
