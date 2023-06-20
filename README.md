@@ -8,11 +8,7 @@ The assets in this repository are not intended to replace any Azure guidance or 
 * [Hands-on workshop labs](https://github.com/loublick-ms/containers-workshop/tree/main/Labs)
 * [Sample .NET Core Application](https://github.com/loublick-ms/containers-workshop/tree/main/App)
 * Reference architectures with narratives for common workloads
-* Reference implementations to deploy and run
 * Best-practices guidance with a focus on Federal customers
-* Automation pipelines to enable secure DevOps
-* Challenges to upskill and/or explore common workloads,
-* FAQs
 
 ## Presentations
 
