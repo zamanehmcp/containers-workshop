@@ -1,6 +1,6 @@
-# Module 3 - Demonstration: Building and Testing a Container Locally
+# Module 3 - Lab 1: Building and Testing a Container Locally
 
-The sample .NET project is a standard To-Do app commonly used in Azure learning modules and repos. It is configured for ASP.NET Core and .NET Core 7.0. The application currently uses the SQLite desktop database. In this demonstration, the app will be refctored to use Azure SQL in preparation to be migrated to the cloud. 
+The sample .NET project is a standard To-Do app commonly used in Azure learning modules and repos. It is configured for ASP.NET Core and .NET Core 7.0. The application currently uses the SQLite desktop database. In this demonstration, the app will be refctored to use Azure SQL in preparation to be migrated to the cloud.
 
 In this lab, you will create the Azure services required to support the application, containerize the application, and run it locally on your desktop.
 
@@ -8,18 +8,35 @@ The project structure will look as follows:
 
 ```console
 - containers-workshop
-  - todoapp
-    - Controllers
-    - Data
-    - Models
-    - Properties
-    - Views
-    - wwwroot
+  - App
+    - Starter
+      - todoapp
+        - Controllers
+        - Data
+        - Models
+        - Properties
+        - Views
+        - wwwroot
+    -Working
+  - Labs
+  - Presentations
   - .gitignore
   - CONTRIBUTING.md
   - LICENSE
   - LICENSE.md
   - README.md
+```
+
+## Prepare the app for refactoring
+
+### Prepare the code baseline for refactoring and containerization
+
+Copy the app code to the working directory that will be used to complete all labs. You will complete all of the labs with the .NET project in the `Working` folder.
+
+Powershell
+
+```console
+PS C:\Repos\containers-workshop\App> Copy-Item -Path '.\App\Starter\todoapp' -Recurse -Destination '.\App\Working\todoapp'
 ```
 
 ## Provision the Azure services required by the application

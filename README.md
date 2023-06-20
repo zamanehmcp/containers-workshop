@@ -18,15 +18,16 @@ The assets in this repository are not intended to replace any Azure guidance or 
 
 * [Module 1: Introduction to Containers](https://github.com/loublick-ms/containers-workshop/tree/main/Presentations)
 * [Module 2: Assessing the App and Environment for Containers](https://github.com/loublick-ms/containers-workshop/tree/main/Presentations)
-* [Module 3: Building and testing a container locally](https://github.com/loublick-ms/containers-workshop/tree/main/Presentations)
-* [Module 4: Preparing for AKS Deployment](https://github.com/loublick-ms/containers-workshop/tree/main/Presentations)
-* [Module 5: Deploying the Application to AKS](https://github.com/loublick-ms/containers-workshop/tree/main/Presentations)
-* [Module 6: Best Practices and Tips](https://github.com/loublick-ms/containers-workshop/tree/main/Presentations)
+* [Module 3: Containerizing the App](https://github.com/loublick-ms/containers-workshop/tree/main/Presentations)
+* Module 4: Preparing for AKS Deployment
+* Module 5: Deploying the Application to AKS
+* Module 6: Best Practices and Tips
 
 ## Labs
 
 * [Module 2 - Lab 1 Assessing the App and Environment for Containers](https://github.com/loublick-ms/containers-workshop/tree/main/Labs/Module%202%20-%20Lab%201%20Assessing%20the%20App%20and%20Environment%20for%20Containers.md)
-
-## Demonstrations
-
-* [Module 3 - Demo Building and Testing a Container Locally](https://github.com/loublick-ms/containers-workshop/tree/main/Labs/Module%203%20-%20Demo%20Building%20and%20Testing%20a%20Container%20Locally.md)
+* [Module 2 - Lab 1 Worksheet Assessing the App and Environment for Containers](https://github.com/loublick-ms/containers-workshop/blob/main/Labs/Module%202%20-%20Lab%201%20Worksheet%20Assessing%20the%20Application%20and%20Environment%20for%20Containers.docx)
+* [Module 3 - Lab 1 Containerizing the App](https://github.com/loublick-ms/containers-workshop/blob/main/Labs/Module%203%20-%20Lab%201%20Containerizing%20the%20App.md)
+* Module 4 - Lab 1 Preparing for AKS Deployment
+* Module 5 - Lab 1 Deploying the App to AKS
+* Module 6 - Lab 1 Best Practices and Tips
