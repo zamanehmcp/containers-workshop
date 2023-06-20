@@ -43,12 +43,14 @@ PS C:\Repos\containers-workshop\App> Copy-Item -Path '.\App\Starter\todoapp' -Re
 
 ### Set environment variables
 
+```console
 $env:RESOURCE_GROUP="rg-containers-workshop"
 $env:LOCATION="eastus"
 $env:CLUSTER_NAME="aks-containers-workshop"
 $env:ACR_NAME="acrcontainersworkshop"
 $env:AS_DBSRV_NAME="as-dbs-containers-workshop"
 $env:AS_DBSRV_SKU="S0"
+```
 
 ### Create an Azure Resource Group
 
