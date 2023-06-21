@@ -2,9 +2,9 @@
 
 In this lab, you will use the Azure CLI (command line interface) deploy the sample `todoapp` app to an Azure Kubernetes Service (AKS) cluster that has several nodes to provide the scale needed to support the application.
 
-The lab instructions below use Powershell. You can also use CMD or bash, but you may need to adjust the commands to be compliant with those shells.
+The lab instructions below use Powershell. You can also use CMD or Bash, but you may need to adjust the commands to be compliant with those shells.
 
-## Prepare our environment and connect to Azure resources
+## Prepare the environment and connect to Azure
 
 ### Create environment variables
 
@@ -16,10 +16,8 @@ Powershell
 $env:RESOURCE_GROUP="rg-containers-workshop"
 $env:LOCATION="eastus"
 $env:CLUSTER_NAME="aks-containers-workshop"
-$env:ACR_NAME="acrcontainersworkshop"
-$env:ACR_ADMIN_USER="acrcontainersworkshop"
-$env:AS_DBSRV_NAME="as-dbs-containers-workshop"
-$env:AS_DBSRV_SKU="S0"
+$env:ACR_NAME="azcrcontainersworkshop"
+$env:ACR_ADMIN_USER="azcrcontainersworkshop"
 ```
 
 **NOTE:** Unlike most Azure services, Azure Container Registry names cannot contain any special characters.
@@ -56,9 +54,123 @@ You should see a return message similar to the following:
 Merged "aks-containers-workshop" as current context in C:\Users\loublick\.kube\config
 ```
 
+If the conttext already exists in the configuration file, you will be prompted to overwite the existing context. Accept the overwrite by responding with a "y" (yes).
+
 Run the kubectl command to return the running nodes in your AKS cluster to verify access to AKS.
 
 ```console
 kubectl get nodes
 ```
 
+## Deploy the app Deployment and internal ingress manifests to the AKS cluster
+
+### Create and apply the app Deployment manifest
+
+Create a new file in the /App/Working/todoapp folder called todoapp.yaml. This file will be the app Deployment manifest. Add the following deployment configuration to the file and save the file.
+
+```console
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoapp
+  template:
+    metadata:
+      labels:
+        app: todoapp
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: todoapp
+        image: azcrcontainersworkshop.azurecr.io/todoapp:v1
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoapp
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: todoapp
+```
+
+Use `kubectl` to deploy the app Deployment manifest to the AKS cluster
+
+```console
+kubectl apply -f .\todoapp.yaml
+```
+
+### Create and apply the internal ingress manifest
+
+```console
+#ingress.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: todoapp
+  labels:
+    app: todoapp
+spec:
+  containers:
+  - image: "acrcontainersworkshop.azurecr.io/todoapp:v1"
+    name: todoapp-image
+    ports:
+    - containerPort: 80
+      protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoapp
+spec:
+  selector:
+    app: todoapp
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todoapp
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          service:
+            name: todoapp
+            port:
+              number: 80
+        pathType: Exact
+```
+
+Use `kubectl` to deploy the internal ingress manifest to the AKS cluster
+
+```console
+kubectl apply -f .\internal-ingress.yaml
+```
