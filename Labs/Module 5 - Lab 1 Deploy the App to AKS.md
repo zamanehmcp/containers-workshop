@@ -18,6 +18,7 @@ $env:LOCATION="eastus"
 $env:CLUSTER_NAME="aks-containers-workshop"
 $env:ACR_NAME="azcrcontainersworkshop"
 $env:ACR_ADMIN_USER="azcrcontainersworkshop"
+$env:APPGW_PUBLIC_IP="appgw-containers-workshop-appgwpip"
 ```
 
 **NOTE:** Unlike most Azure services, Azure Container Registry names cannot contain any special characters.
@@ -174,3 +175,19 @@ Use `kubectl` to deploy the internal ingress manifest to the AKS cluster
 ```console
 kubectl apply -f .\internal-ingress.yaml
 ```
+
+## Open the application
+
+### Retirve the App Gateway public IP address
+
+Retrieve the public IP address APp Gateway exposes to access the apps in the AKS cluster.
+
+```console
+az network public-ip show \
+  --resource-group $env:VNET_RESOURCE_GROUP \
+  --name $env:APPGW_PUBLIC_IP \
+  --query [ipAddress] \
+  --output tsv
+```
+
+Copy the IP address and paste it into a web browser address bar to access the ToDo app.
